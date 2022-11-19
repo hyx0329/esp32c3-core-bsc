@@ -1,0 +1,34 @@
+[package]
+name = "esp32c3-core-bsc"
+version = "0.1.0"
+description = "Board support crate for the ESP32C3-CORE board"
+categories = ["embedded", "hardware-support", "std"]
+keywords = ["riscv", "esp32", "bsc"]
+edition = "2021"
+
+[dependencies]
+embedded-hal = "1.0.0-alpha.8"
+embedded-hal-0-2 = { package = "embedded-hal", version = "0.2.7", features = ["unproven"] }
+esp-idf-hal = "0.38.1"
+esp-idf-sys = { version = "0.31.9", features = ["binstart"]}
+embedded-svc = { version = "0.22.3", optional = true }
+esp-idf-svc = { version = "0.42.5", optional = true }
+st7735-lcd = { version = "0.8.1", optional = true }
+anyhow = { version = "1", optional = true }
+log = { version = "0.4.17", optional = true }
+
+[dev-dependencies]
+embedded-graphics = "0.7.1"
+
+[build-dependencies]
+embuild = "0.30"
+anyhow = "1"
+
+[features]
+lcd_hat = ["st7735-lcd"]
+wifi = ["embedded-svc", "esp-idf-svc", "anyhow", "log"]
+
+[[example]]
+name = "display"
+required-features = ["lcd_hat"]
+
